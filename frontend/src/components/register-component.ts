@@ -19,7 +19,7 @@ export class RegisterComponent {
     private buildElements(container: HTMLDialogElement): void {
         this.elements = {
             container: container,
-            form: container.querySelector('form'),
+            form: container.querySelector('form')!,
         };
     }
 
@@ -41,7 +41,6 @@ export class RegisterComponent {
 
         this.elements.container.close();
         this.promiseResolve(user);
-        document.location.reload();
     }
 }
 

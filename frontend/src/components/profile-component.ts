@@ -16,7 +16,7 @@ export class ProfileComponent {
         this.elements = {
             container: container,
             username: document.getElementById('profile-username'),
-            totalScore: document.getElementById('current-score'),
+            score: document.getElementById('current-score'),
             level: document.getElementById('current-level'),
             removeAccountBtn: document.getElementById('remove-account-btn') as HTMLButtonElement,
         };
@@ -30,7 +30,7 @@ export class ProfileComponent {
 
     async updateData(user) {
         this.elements.username.innerText = user.username;
-        this.elements.totalScore.innerText = user.score.toString();
+        this.elements.score.innerText = user.score.toString();
         this.elements.level.innerText = user.level.toString();
     }
 }
@@ -38,7 +38,7 @@ export class ProfileComponent {
 interface ProfileComponentElements {
     container: HTMLElement;
     username: HTMLSpanElement;
-    totalScore: HTMLSpanElement;
+    score: HTMLSpanElement;
     level: HTMLSpanElement;
     removeAccountBtn: HTMLButtonElement
 }

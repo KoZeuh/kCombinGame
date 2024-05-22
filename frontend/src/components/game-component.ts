@@ -25,13 +25,14 @@ export class GameComponent {
         this.myCards = gameElement;
         this.appendTens = document.getElementById("tens")!;
         this.appendSeconds = document.getElementById("seconds")!;
-        this.user = this.userProvider.getUser();
 
         this.initializeGame();
         this.addPauseButtonListener();
     }
 
-    private initializeGame(): void {
+    private async initializeGame(): Promise<void> {
+        this.user = await this.userProvider.getUser();
+
         const images = [
             'a042581f4e29026704dx',
             'a042581f4e29026704d5',
@@ -113,14 +114,14 @@ export class GameComponent {
         }, 500);
     }
 
-    private win(): void {
+    private async win(): Promise<void> {
         if (this.counter === this.myCards.children.length / 2) {
             clearInterval(this.Interval);
-            this.nextLevel();
+            await this.nextLevel();
         }
     }
 
-    private nextLevel(): void {
+    private async nextLevel(): Promise<void> {
         let bonus = 0;
         const timeTaken = this.seconds + this.tens / 100;
         if (timeTaken < this.minTimePerLevel) {
@@ -128,7 +129,7 @@ export class GameComponent {
         }
         this.user.score += 100 + bonus;
         this.user.level++;
-        this.userProvider.updateUserLevelAndScore(this.user.level, this.user.score);
+        await this.userProvider.updateUserLevelAndScore(this.user.level, this.user.score);
         this.resetGame();
     }
 

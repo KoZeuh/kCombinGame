@@ -1,4 +1,5 @@
 import { LeaderboardEntry } from '../interfaces/leaderboard-entry';
+
 export class LeaderboardComponent {
     private elements: LeaderboardComponentElements;
 
