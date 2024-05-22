@@ -1,0 +1,155 @@
+/* Variabes */  
+$orange: #ffa600;
+$green: #c1d72e;
+$blue: #82d2e5;
+$grey: #f3f3f3;
+$white: #fff;
+$base-color:$blue ;
+$dark : #292c35;
+$light : #f3f3f3;
+$modes: (dark: $dark, light: $light);
+
+
+/* Mixin's */  
+@mixin transition {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+@mixin corners ($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius; 
+  -khtml-border-radius: $radius; 
+}
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  height:100%;
+  text-align: center;
+}
+
+
+h1, h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 2.6em;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 1.4em;
+  text-transform: uppercase;
+}
+
+#seconds, #tens{
+  font-size:2em;
+}
+
+button{
+  @include corners (5px);
+  border: solid 1px $white;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:1.2em;
+  padding:18px 10px;
+  width:180px;
+  margin: 10px;
+  outline: none;
+ 
+    &:hover {
+    	@include transition;
+    	background:$white;
+    	border: solid 1px $white;
+    	color:$base-color;
+  	}
+    
+}
+
+
+#container {
+  width: 630px;
+  margin: 10px auto;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+}
+
+[data-view="card"] {
+  transform: rotateY(180deg);
+  width: 100px;
+  height: 140px;
+  border: solid 1px #d3cece;
+  border-radius: 5px;
+  float: left;
+  margin: 10px;
+  cursor: pointer;
+  background:
+  linear-gradient(135deg, $grey 22px, $white 22px, $white 24px, transparent 24px, transparent 67px, $white 67px, $white 69px, transparent 69px),
+  linear-gradient(225deg, $grey 22px, $white 22px, $white 24px, transparent 24px, transparent 67px, $white 67px, $white 69px, transparent 69px)0 64px;
+  background-color: $grey;
+  background-size: 64px 128px
+}
+
+.flipped {
+  transition: 0.6s;
+	transform-style: preserve-3d;
+  position: relative;
+	transform: rotateY(0deg);
+}
+
+.reverse {
+  transition: 0.6s;
+	transform-style: preserve-3d;
+  position: relative;
+	transform: rotateY(180deg);
+}
+
+.correct {
+  opacity: .5;
+  cursor: default;
+	transform-style: preserve-3d;
+  position: relative;
+	transform: rotateY(0deg);
+}
+
+/* Icons */
+$cards: a042581f4e29026704dx,a042581f4e29026704d5,a042581f4e29026704a,a042581f4e29026704b,a042581f4e29026704cf, a042581f4e2902670498
+a042581f4e29026704c, a042581f4e29026704d, a042581f4e29026704d2;
+       
+@each $card in $cards  {
+
+  .correct[data-item="#{$card}"],
+  .flipped[data-item="#{$card}"]{
+    background:url("https://i.pravatar.cc/150?u=#{$card}") left center no-repeat $white;
+    background-size: contain;
+  }
+
+}
+
+.dark {
+  background-color: $dark; 
+  color:$white
+}
+
+.dark {
+  h1, h2, h3, h4, h5, h6, p, span, a, button {
+    color: $white;
+  }
+
+  .container, .row, .col  {
+    background-color: $dark;
+    color: $white;
+  }
+
+  .card {
+    background-color: #1414169a;
+  }
+}
