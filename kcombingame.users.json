@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "664df2d0efba8d54f7603a92"
+  },
+  "username": "kozeuh",
+  "level": 2,
+  "score": 661.9,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "664dfdeae69084b62e5fdfcc"
+  },
+  "username": "paulux",
+  "level": 1,
+  "score": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "664dfe17e69084b62e5fdfda"
+  },
+  "username": "marticas",
+  "level": 1,
+  "score": 0,
+  "__v": 0
+}]
