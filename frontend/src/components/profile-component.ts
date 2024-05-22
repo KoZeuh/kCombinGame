@@ -18,13 +18,13 @@ export class ProfileComponent {
             username: document.getElementById('profile-username'),
             score: document.getElementById('current-score'),
             level: document.getElementById('current-level'),
-            removeAccountBtn: document.getElementById('remove-account-btn') as HTMLButtonElement,
+            disconnectBtn: document.getElementById('disconnect-btn') as HTMLButtonElement,
         };
     }
 
     private bindEvents(): void {
-        this.elements.removeAccountBtn.addEventListener('click', () => {
-            this.userProvider.removeAccount();
+        this.elements.disconnectBtn.addEventListener('click', () => {
+            this.userProvider.disconnect();
         });
     }
 
@@ -40,5 +40,5 @@ interface ProfileComponentElements {
     username: HTMLSpanElement;
     score: HTMLSpanElement;
     level: HTMLSpanElement;
-    removeAccountBtn: HTMLButtonElement
+    disconnectBtn: HTMLButtonElement
 }

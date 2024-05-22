@@ -11,13 +11,13 @@ export class Manager {
     }
 
     private async start(): Promise<void> {
-        const isAuthenticated = await this.userProvider.isAuthenticated();
-        
-        if (!isAuthenticated) {
+        await this.userProvider.loadFromStorage();
+
+        if (!this.userProvider.isAuthenticated()) {
             await this.userProvider.register();
         }
 
-        const user = await this.userProvider.getUser();
+        const user = this.userProvider.getUser();
 
         if (user) {
             new GameComponent(document.getElementById("main-game"));

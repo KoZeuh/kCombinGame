@@ -7,6 +7,7 @@ export class RegisterComponent {
     constructor(container: HTMLDialogElement) {
         this.buildElements(container);
         this.bindEvents();
+        this.disableClosableModal();
     }
 
     runRegister(): Promise<User> {
@@ -30,11 +31,41 @@ export class RegisterComponent {
         });
     }
 
+    private disableClosableModal() {
+        this.elements.container.addEventListener('cancel', (event) => {
+            event.preventDefault();
+        });
+
+        this.elements.container.addEventListener('click', (event) => {
+            const rect = this.elements.container.getBoundingClientRect();
+            const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
+                                rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+                                
+            if (!isInDialog) {
+                event.stopPropagation();
+            }
+        });
+
+        window.addEventListener('keydown', this.preventEscapeKey);
+    }
+
+    private preventEscapeKey(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+        }
+    }
+
     private async finish() {
         const payload = new FormData(this.elements.form);
+        const username = payload.get("username")?.toString().trim();
 
-        const user = {
-            username: payload.get("username").toString(),
+        if (!username) {
+            alert("Please enter a valid username");
+            return;
+        }
+
+        const user: User = {
+            username: username,
             level: 1,
             score: 0
         };

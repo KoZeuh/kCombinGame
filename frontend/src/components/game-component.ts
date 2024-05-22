@@ -31,7 +31,7 @@ export class GameComponent {
     }
 
     private async initializeGame(): Promise<void> {
-        this.user = await this.userProvider.getUser();
+        this.user = this.userProvider.getUser();
 
         const images = [
             'a042581f4e29026704dx',
@@ -117,7 +117,9 @@ export class GameComponent {
     private async win(): Promise<void> {
         if (this.counter === this.myCards.children.length / 2) {
             clearInterval(this.Interval);
-            await this.nextLevel();
+            setTimeout(async () => {
+                this.nextLevel();
+            }, 500);
         }
     }
 
