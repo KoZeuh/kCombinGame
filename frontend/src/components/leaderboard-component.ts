@@ -1,17 +1,13 @@
 import { LeaderboardEntry } from '../interfaces/leaderboard-entry';
+import axios from 'axios';
 
 export class LeaderboardComponent {
+    private apiURL = 'http://localhost:3000/leaderboard';
     private elements: LeaderboardComponentElements;
-
-    leaderboardEntries: LeaderboardEntry[] = [
-        { rank: 1, name: 'Alex HMorrision', score: 38, level: 980, avatarUrl: 'https://i.pravatar.cc/155?u=a042581f4e29026704d' },
-        { rank: 2, name: 'Alex HMorrision', score: 38, level: 980, avatarUrl: 'https://i.pravatar.cc/155?u=a042581f4e29026704d5' },
-        { rank: 3, name: 'Alex HMorrision', score: 38, level: 980, avatarUrl: 'https://i.pravatar.cc/155?u=a042581f4e29026704dx' },
-    ];
 
     constructor(container: HTMLElement) {
         this.buildElements(container);
-        this.populateLeaderboard(this.leaderboardEntries);
+        this.fetchLeaderboardData();
     }
 
     private buildElements(container: HTMLElement): void {
@@ -21,10 +17,27 @@ export class LeaderboardComponent {
         };
     }
 
+    private async fetchLeaderboardData() {
+        try {
+            const response = await axios.get(this.apiURL);
+            const leaderboardEntries = response.data.map((entry, index) => ({
+                rank: index + 1,
+                username: entry.username,
+                score: entry.score,
+                level: entry.level,
+                avatarUrl: `https://i.pravatar.cc/155?u=${entry._id}`
+            }));
+
+            this.populateLeaderboard(leaderboardEntries);
+        } catch (error) {
+            console.error('Error fetching leaderboard data:', error);
+        }
+    }
+
     private populateLeaderboard(entries: LeaderboardEntry[]) {
         const template = document.getElementById('leaderboard-template') as HTMLTemplateElement;
-        const leaderboardContainer = document.getElementById('leaderboard');
-        const additionalLeaderboardContainer = document.getElementById('additional-leaderboard');
+        const leaderboardContainer = this.elements.leaderboard;
+        const additionalLeaderboardContainer = this.elements.additionalLeaderboard;
 
         entries.forEach((entry, index) => {
             const clone = template.content.cloneNode(true) as HTMLElement;
@@ -35,15 +48,15 @@ export class LeaderboardComponent {
             const level = clone.querySelector('.stats div:last-child span:last-child')!;
 
             img.src = entry.avatarUrl;
-            name.textContent = entry.name;
+            name.textContent = entry.username;
             rank.textContent = `#${entry.rank}`;
             score.textContent = entry.score.toString();
             level.textContent = entry.level.toString();
 
             if (index === 0) {
-                leaderboardContainer!.appendChild(clone);
+                leaderboardContainer.appendChild(clone);
             } else {
-                additionalLeaderboardContainer!.appendChild(clone);
+                additionalLeaderboardContainer.appendChild(clone);
             }
         });
     }
