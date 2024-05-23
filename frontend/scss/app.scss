@@ -132,13 +132,10 @@ button {
   transform: rotateY(0deg);
 }
 
-/* Icons */
-$cards: a042581f4e29026704dx, a042581f4e29026704d5, a042581f4e29026704a, a042581f4e29026704b, a042581f4e29026704cf, a042581f4e2902670498, a042581f4e29026704c, a042581f4e29026704d, a042581f4e29026704d2;
-
-@each $card in $cards {
+@for $card from 1 through 70 {
   .correct[data-item="#{$card}"],
   .flipped[data-item="#{$card}"] {
-    background: url("https://i.pravatar.cc/150?u=#{$card}") left center no-repeat $white;
+    background: url("https://i.pravatar.cc/150?img=#{$card}") left center no-repeat $white;
     background-size: contain;
   }
 }

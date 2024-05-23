@@ -38,8 +38,7 @@ export class RegisterComponent {
 
         this.elements.container.addEventListener('click', (event) => {
             const rect = this.elements.container.getBoundingClientRect();
-            const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
-                                rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+            const isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
                                 
             if (!isInDialog) {
                 event.stopPropagation();

@@ -33,17 +33,11 @@ export class GameComponent {
     private async initializeGame(): Promise<void> {
         this.user = this.userProvider.getUser();
 
-        const images = [
-            'a042581f4e29026704dx',
-            'a042581f4e29026704d5',
-            'a042581f4e29026704a',
-            'a042581f4e29026704b',
-            'a042581f4e29026704cf',
-            'a042581f4e2902670498',
-            'a042581f4e29026704c',
-            'a042581f4e29026704d',
-            'a042581f4e29026704d2',
-        ];
+        const images = [];
+
+        for (let i = 1; i <= 70; i++) {
+            images.push(i);
+        }
 
         let levelPairs = this.user.level + 1; // Increase pairs based on level (starting from 2 pairs)
 

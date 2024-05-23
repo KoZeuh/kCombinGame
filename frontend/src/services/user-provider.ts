@@ -3,9 +3,9 @@ import { User } from "../interfaces/user";
 import axios from 'axios';
 
 class UserProvider {
-    private apiUpdateUrl = 'http://localhost:3000/user/update';
+    private apiUpdateUserUrl = 'http://localhost:3000/user/update';
     private apiGetUserUrl = 'http://localhost:3000/user/get';
-    private apiRegisterUrl = 'http://localhost:3000/user/create';
+    private apiRegisterUserUrl = 'http://localhost:3000/user/create';
 
     private static readonly storageKey = "userId";
     private user?: User;
@@ -16,12 +16,15 @@ class UserProvider {
 
         if (userId) {
             const response = await axios.get(`${this.apiGetUserUrl}/${userId}`);
-            this.user = response.data;
+
+            if (response.data) {
+                this.user = response.data;
+            }
         }
     }
 
-    getUser(): User | null {
-        return this.user || null;
+    getUser(): User {
+        return this.user;
     }
 
     isAuthenticated(): boolean {
@@ -30,15 +33,19 @@ class UserProvider {
 
     async register(): Promise<void> {
         let user = await this.registerComponent.runRegister();
-        const response = await axios.post(this.apiRegisterUrl, user);
+        const response = await axios.post(this.apiRegisterUserUrl, user);
 
-        user = response.data;
-        localStorage.setItem(UserProvider.storageKey, user._id);
-        this.user = user;
+        if (response.data) {
+            user = response.data;
+
+            localStorage.setItem(UserProvider.storageKey, user._id);
+            
+            this.user = user;
+        }
     }
 
     async save(user: User): Promise<void> {
-        await axios.post(this.apiUpdateUrl, user);
+        await axios.post(this.apiUpdateUserUrl, user);
         this.user = user;
     }
 
