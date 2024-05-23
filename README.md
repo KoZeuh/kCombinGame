@@ -45,7 +45,9 @@
 <details>
   <summary><strong>➡️ View</strong></summary>
   <br/>
-  <img align="left" src="kcombingame_dark_mode.PNG" width="500" target="_blank"/>
+  <img align="left" src="kcombingame_dark_mode.PNG" width="400" target="_blank"/>
+  <img src="kcombingame_light_mode.PNG" width="400" target="_blank"/>
+  <br/>
 </details>
 
 ## Features
